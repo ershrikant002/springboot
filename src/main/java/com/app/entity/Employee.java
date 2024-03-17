@@ -1,14 +1,22 @@
 package com.app.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 
 @Entity
+@Table(name = "employees")
 public class Employee {
-	
-	
+
+	@jakarta.persistence.Id
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private int id;
 	private String firstName;
 	private String lastName;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private Address address;
 	public int getId() {
 		return id;
 	}
@@ -31,6 +39,5 @@ public class Employee {
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
-	
 
 }
